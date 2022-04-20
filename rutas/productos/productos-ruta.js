@@ -2,9 +2,13 @@ const express = require("express");
 const { productosLista } = require("../../data/index");
 const router = express.Router();
 
+//obtener todos los productos
+
 router.get(`/productos`, (req, res) => {
   res.send(productosLista);
 });
+
+//FindId
 
 router.get(`/productos/:id`, (req, res) => {
   const { id } = req.params;
@@ -17,6 +21,8 @@ router.get(`/productos/:id`, (req, res) => {
       : res.send(dataId);
   }
 });
+
+//agrega producto
 
 router.post("/productos", (req, res) => {
   const { title, description, img, price, stock } = req.body;
@@ -39,6 +45,8 @@ router.post("/productos", (req, res) => {
   productosLista.push(nuevoProducto);
   res.status(200).send(`producto cargado`);
 });
+
+//editar producto
 
 router.put(`/productos/:id`, (req, res) => {
   const {
@@ -66,6 +74,8 @@ router.put(`/productos/:id`, (req, res) => {
   productosLista[productoIndex] = nuevoProducto;
   return res.json({ success: true, result: nuevoProducto });
 });
+
+//eliminar producto
 
 router.delete("/productos/:id", (req, res) => {
   const { id } = req.params;
